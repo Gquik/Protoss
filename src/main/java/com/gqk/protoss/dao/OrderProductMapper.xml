@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gqk.protoss.dao.mapper.OrderProductMapper" >
+  <resultMap id="BaseResultMap" type="com.gqk.protoss.entity.OrderProduct" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, order_id, count, delete_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.gqk.protoss.entity.OrderProductKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_product
+    where product_id = #{productId,jdbcType=INTEGER}
+      and order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gqk.protoss.entity.OrderProductKey" >
+    delete from order_product
+    where product_id = #{productId,jdbcType=INTEGER}
+      and order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gqk.protoss.entity.OrderProduct" >
+    insert into order_product (product_id, order_id, count, 
+      delete_time, update_time)
+    values (#{productId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
+      #{deleteTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.OrderProduct" >
+    insert into order_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="deleteTime != null" >
+        delete_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gqk.protoss.entity.OrderProduct" >
+    update order_product
+    <set >
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+      and order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.OrderProduct" >
+    update order_product
+    set count = #{count,jdbcType=INTEGER},
+      delete_time = #{deleteTime,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
+      and order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>
