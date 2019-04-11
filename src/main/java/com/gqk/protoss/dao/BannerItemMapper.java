@@ -1,6 +1,7 @@
 package com.gqk.protoss.dao;
 
 import com.gqk.protoss.entity.BannerItem;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface BannerItemMapper {
 
     int updateByPrimaryKey(BannerItem record);
 
-    List<BannerItem> selectListByBannerId (Integer bannerId);
+    List<BannerItem> selectListByBannerId (@Param("bannerId") Integer bannerId);
 }

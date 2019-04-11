@@ -115,7 +115,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectListByBannerId" resultMap="BaseResultMap">
+  <select id="selectListByBannerId" resultMap="BaseResultMap" >
     SELECT
     <include refid="Base_Column_List" />
     FROM banner_item

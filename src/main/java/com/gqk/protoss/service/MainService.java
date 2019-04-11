@@ -20,9 +20,10 @@ public class MainService {
     private BannerItemMapper bannerItemMapper;
 
     public Result<BannerModel> getBanner(Integer id){
-        Banner banner = bannerMapper.selectByPrimaryKey(id);
-        BannerModel bannerModel = (BannerModel) banner;
         List<BannerItem> bannerItemList = bannerItemMapper.selectListByBannerId(id);
+        Banner banner = bannerMapper.selectByPrimaryKey(id);
+        BannerModel bannerModel = new BannerModel() ;
+        bannerModel.setBanner(banner);
         bannerModel.setItems(bannerItemList);
         return Result.one(bannerModel);
     }

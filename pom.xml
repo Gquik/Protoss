@@ -59,23 +59,38 @@
 			</plugin>
 		</plugins>
 
+		<!--<resources>-->
+			<!--&lt;!&ndash; dao xml文件配置 &ndash;&gt;-->
+			<!--<resource>-->
+				<!--<directory>src/main/java</directory>-->
+				<!--<includes>-->
+					<!--<include>**/*.xml</include>-->
+				<!--</includes>-->
+				<!--<filtering>false</filtering>-->
+			<!--</resource>-->
+		<!--</resources>-->
+		<!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
 		<resources>
-			<!-- dao xml文件配置 -->
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
+					<include>**/*.yml</include>
+					<include>**/*.properties</include>
 					<include>**/*.xml</include>
 				</includes>
-				<!--<filtering>false</filtering>-->
+				<filtering>false</filtering>
 			</resource>
-			<!-- 配置文件配置 -->
-			<!--<resource>
-				<directory>${basedir}src/main/resources</directory>
+			<resource>
+				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.yml</include>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
 				</includes>
-			</resource>-->
+				<filtering>false</filtering>
+			</resource>
 		</resources>
+
 	</build>
 
 </project>
