@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gqk.protoss.dao.mapper.ProductPropertyMapper" >
-  <resultMap id="BaseResultMap" type="com.gqk.protoss.entity.ProductProperty" >
+<mapper namespace="com.gqk.protoss.dao.CategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.gqk.protoss.entity.Category" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="detail" property="detail" jdbcType="VARCHAR" />
-    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="topic_img_id" property="topicImgId" jdbcType="INTEGER" />
     <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, detail, product_id, delete_time, update_time
+    id, name, topic_img_id, delete_time, description, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from product_property
+    from category
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from product_property
+    delete from category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.gqk.protoss.entity.ProductProperty" >
-    insert into product_property (id, name, detail, 
-      product_id, delete_time, update_time
+  <insert id="insert" parameterType="com.gqk.protoss.entity.Category" >
+    insert into category (id, name, topic_img_id, 
+      delete_time, description, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
-      #{productId,jdbcType=INTEGER}, #{deleteTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{topicImgId,jdbcType=INTEGER}, 
+      #{deleteTime,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{updateTime,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.ProductProperty" >
-    insert into product_property
+  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.Category" >
+    insert into category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -39,14 +39,14 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="detail != null" >
-        detail,
-      </if>
-      <if test="productId != null" >
-        product_id,
+      <if test="topicImgId != null" >
+        topic_img_id,
       </if>
       <if test="deleteTime != null" >
         delete_time,
+      </if>
+      <if test="description != null" >
+        description,
       </if>
       <if test="updateTime != null" >
         update_time,
@@ -59,34 +59,34 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null" >
-        #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="productId != null" >
-        #{productId,jdbcType=INTEGER},
+      <if test="topicImgId != null" >
+        #{topicImgId,jdbcType=INTEGER},
       </if>
       <if test="deleteTime != null" >
         #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gqk.protoss.entity.ProductProperty" >
-    update product_property
+  <update id="updateByPrimaryKeySelective" parameterType="com.gqk.protoss.entity.Category" >
+    update category
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null" >
-        detail = #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="productId != null" >
-        product_id = #{productId,jdbcType=INTEGER},
+      <if test="topicImgId != null" >
+        topic_img_id = #{topicImgId,jdbcType=INTEGER},
       </if>
       <if test="deleteTime != null" >
         delete_time = #{deleteTime,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=INTEGER},
@@ -94,12 +94,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.ProductProperty" >
-    update product_property
+  <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.Category" >
+    update category
     set name = #{name,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      product_id = #{productId,jdbcType=INTEGER},
+      topic_img_id = #{topicImgId,jdbcType=INTEGER},
       delete_time = #{deleteTime,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

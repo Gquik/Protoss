@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gqk.protoss.dao.mapper.CategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.gqk.protoss.entity.Category" >
+<mapper namespace="com.gqk.protoss.dao.BannerMapper" >
+  <resultMap id="BaseResultMap" type="com.gqk.protoss.entity.Banner" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="topic_img_id" property="topicImgId" jdbcType="INTEGER" />
-    <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
     <result column="update_time" property="updateTime" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, topic_img_id, delete_time, description, update_time
+    id, name, description, delete_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from category
+    from banner
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from category
+    delete from banner
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.gqk.protoss.entity.Category" >
-    insert into category (id, name, topic_img_id, 
-      delete_time, description, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{topicImgId,jdbcType=INTEGER}, 
-      #{deleteTime,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{updateTime,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.gqk.protoss.entity.Banner" >
+    insert into banner (id, name, description, 
+      delete_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{deleteTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.Category" >
-    insert into category
+  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.Banner" >
+    insert into banner
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -39,14 +36,11 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="topicImgId != null" >
-        topic_img_id,
+      <if test="description != null" >
+        description,
       </if>
       <if test="deleteTime != null" >
         delete_time,
-      </if>
-      <if test="description != null" >
-        description,
       </if>
       <if test="updateTime != null" >
         update_time,
@@ -59,34 +53,28 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="topicImgId != null" >
-        #{topicImgId,jdbcType=INTEGER},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="deleteTime != null" >
         #{deleteTime,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gqk.protoss.entity.Category" >
-    update category
+  <update id="updateByPrimaryKeySelective" parameterType="com.gqk.protoss.entity.Banner" >
+    update banner
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="topicImgId != null" >
-        topic_img_id = #{topicImgId,jdbcType=INTEGER},
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="deleteTime != null" >
         delete_time = #{deleteTime,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=INTEGER},
@@ -94,12 +82,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.Category" >
-    update category
+  <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.Banner" >
+    update banner
     set name = #{name,jdbcType=VARCHAR},
-      topic_img_id = #{topicImgId,jdbcType=INTEGER},
-      delete_time = #{deleteTime,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
+      delete_time = #{deleteTime,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

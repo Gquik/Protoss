@@ -1,4 +1,4 @@
-package com.gqk.protoss.dao.mapper;
+package com.gqk.protoss.dao;
 
 import com.gqk.protoss.entity.UserAddress;
 

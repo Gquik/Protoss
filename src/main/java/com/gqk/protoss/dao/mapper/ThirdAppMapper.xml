@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gqk.protoss.dao.mapper.ThirdAppMapper" >
+<mapper namespace="com.gqk.protoss.dao.ThirdAppMapper" >
   <resultMap id="BaseResultMap" type="com.gqk.protoss.entity.ThirdApp" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="app_id" property="appId" jdbcType="VARCHAR" />
