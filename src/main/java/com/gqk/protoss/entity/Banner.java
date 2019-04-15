@@ -1,5 +1,7 @@
 package com.gqk.protoss.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Banner {
     private Integer id;
 
@@ -7,8 +9,10 @@ public class Banner {
 
     private String description;
 
+    @JsonIgnore
     private Integer deleteTime;
 
+    @JsonIgnore
     private Integer updateTime;
 
     public Integer getId() {

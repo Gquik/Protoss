@@ -1,18 +1,26 @@
 package com.gqk.protoss.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BannerItem {
+    @JsonIgnore
     private Integer id;
 
+    @JsonIgnore
     private Integer imgId;
 
     private String keyWord;
 
     private Byte type;
 
+    @JsonIgnore
     private Integer deleteTime;
 
+    @JsonIgnore
     private Integer bannerId;
 
+    @JsonIgnore
     private Integer updateTime;
 
     public Integer getId() {

@@ -9,7 +9,7 @@
     <result column="update_time" property="updateTime" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, url, from, delete_time, update_time
+    id, url, `from`, delete_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,7 +22,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gqk.protoss.entity.Image" >
-    insert into image (id, url, from, 
+    insert into image (id, url, `from`,
       delete_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{from,jdbcType=TINYINT}, 
       #{deleteTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
@@ -37,7 +37,7 @@
         url,
       </if>
       <if test="from != null" >
-        from,
+        `from`,
       </if>
       <if test="deleteTime != null" >
         delete_time,
@@ -71,7 +71,7 @@
         url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="from != null" >
-        from = #{from,jdbcType=TINYINT},
+        `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="deleteTime != null" >
         delete_time = #{deleteTime,jdbcType=INTEGER},
@@ -85,7 +85,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.Image" >
     update image
     set url = #{url,jdbcType=VARCHAR},
-      from = #{from,jdbcType=TINYINT},
+      `from` = #{from,jdbcType=TINYINT},
       delete_time = #{deleteTime,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

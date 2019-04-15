@@ -1,14 +1,20 @@
 package com.gqk.protoss.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Image {
+    @JsonIgnore
     private Integer id;
 
     private String url;
 
+    @JsonIgnore
     private Byte from;
 
+    @JsonIgnore
     private Integer deleteTime;
 
+    @JsonIgnore
     private Integer updateTime;
 
     public Integer getId() {

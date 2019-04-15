@@ -5,11 +5,11 @@ import com.gqk.protoss.entity.BannerItem;
 
 import java.util.List;
 
-public class BannerModel{
+public class BannerItemImageModel {
 
     private Banner banner;
 
-    private List<BannerItem> items;
+    private List<BannerItemModel> items;
 
     public Banner getBanner() {
         return banner;
@@ -19,11 +19,11 @@ public class BannerModel{
         this.banner = banner;
     }
 
-    public List<BannerItem> getItems() {
+    public List<BannerItemModel> getItems() {
         return items;
     }
 
-    public void setItems(List<BannerItem> items) {
+    public void setItems(List<BannerItemModel> items) {
         this.items = items;
     }
 }
