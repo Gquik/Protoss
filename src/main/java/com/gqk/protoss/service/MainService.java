@@ -55,7 +55,7 @@ public class MainService {
         return Result.one(bannerItemImageModel);
     }
 
-    public Result<List<ThemeImageModel>> getTheme(List<Integer> idList){
+    public Result<List<ThemeImageModel>> getTheme(Integer[] idList){
         List<ThemeImageModel> themeImageModelList = new ArrayList<>();
         for (Integer id:idList){
             if(id!=null){
@@ -64,10 +64,16 @@ public class MainService {
                 themeImageModel.setTheme(theme);
                 if (theme.getTopicImgId()!=null){
                     Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
+                    if(topicImage.getFrom()==1){
+                        topicImage.setUrl("http://47.99.218.29:8080/static/images"+topicImage.getUrl());
+                    }
                     themeImageModel.setTopicImage(topicImage);
                 }
                 if (theme.getHeadImgId()!=null){
                     Image headImage = imageMapper.selectByPrimaryKey(theme.getHeadImgId());
+                    if(headImage.getFrom()==1){
+                        headImage.setUrl("http://47.99.218.29:8080/static/images"+headImage.getUrl());
+                    }
                     themeImageModel.setHeadImage(headImage);
                 }
                 themeImageModelList.add(themeImageModel);

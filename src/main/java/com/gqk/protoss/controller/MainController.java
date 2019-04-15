@@ -1,6 +1,5 @@
 package com.gqk.protoss.controller;
 
-import com.gqk.protoss.condition.ThemeImageConditon;
 import com.gqk.protoss.controller.rest.Result;
 import com.gqk.protoss.model.BannerItemImageModel;
 import com.gqk.protoss.model.ThemeImageModel;
@@ -25,9 +24,9 @@ public class MainController {
         return mainService.getBanner(id);
     }
 
-    @RequestMapping(value = "theme",method = RequestMethod.POST)
-    public Result<List<ThemeImageModel>> getTheme(@RequestBody ThemeImageConditon themeImageConditon) {
-        List<Integer> idList = themeImageConditon.getIdList();
+    @RequestMapping(value = "theme",method = RequestMethod.GET)
+    public Result<List<ThemeImageModel>> getTheme(@RequestParam Integer[] idList) {//@RequestBody ThemeImageConditon themeImageConditon
+        //Integer[] idList = new Integer[]{1,2,3};
         return mainService.getTheme(idList);
     }
 
