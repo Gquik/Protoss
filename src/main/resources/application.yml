@@ -1,3 +1,4 @@
+
 spring:
   datasource:
     name: zerg
@@ -5,3 +6,5 @@ spring:
     username: root
     password: Gqk_0725
     drive-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8081

@@ -25,7 +25,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "theme",method = RequestMethod.GET)
-    public Result<List<ThemeImageModel>> getTheme(@RequestParam Integer[] idList) {//@RequestBody ThemeImageConditon themeImageConditon
+    public Result<List<ThemeImageModel>> getTheme(@RequestParam Integer[] idList) {
         //Integer[] idList = new Integer[]{1,2,3};
         return mainService.getTheme(idList);
     }

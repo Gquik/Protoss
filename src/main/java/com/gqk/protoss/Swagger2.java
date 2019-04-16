@@ -27,7 +27,7 @@ public class Swagger2 {
         return new ApiInfoBuilder()
                 .title("秒杀商铺后台")
                 .description("秒杀商铺后台接口文档")
-                .termsOfServiceUrl("http://localhost:8080/swagger-ui.html")
+                .termsOfServiceUrl("http://localhost:8081/swagger-ui.html")
                 .contact("your contact")
                 .version("1.0")
                 .build();
