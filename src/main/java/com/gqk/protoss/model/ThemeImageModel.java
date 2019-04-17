@@ -1,19 +1,22 @@
 package com.gqk.protoss.model;
 
 import com.gqk.protoss.entity.Image;
+import com.gqk.protoss.entity.Product;
 import com.gqk.protoss.entity.Theme;
 
-public class ThemeImageModel {
-    private Theme theme;
+import java.util.List;
+
+public class ThemeImageModel extends Theme{
+    private List<Product> products;
     private Image topicImage;
     private Image headImage;
 
-    public Theme getTheme() {
-        return theme;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setTheme(Theme theme) {
-        this.theme = theme;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Image getTopicImage() {

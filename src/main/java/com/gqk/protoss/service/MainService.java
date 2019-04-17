@@ -1,14 +1,8 @@
 package com.gqk.protoss.service;
 
 import com.gqk.protoss.controller.rest.Result;
-import com.gqk.protoss.dao.BannerItemMapper;
-import com.gqk.protoss.dao.BannerMapper;
-import com.gqk.protoss.dao.ImageMapper;
-import com.gqk.protoss.dao.ThemeMapper;
-import com.gqk.protoss.entity.Banner;
-import com.gqk.protoss.entity.BannerItem;
-import com.gqk.protoss.entity.Image;
-import com.gqk.protoss.entity.Theme;
+import com.gqk.protoss.dao.*;
+import com.gqk.protoss.entity.*;
 import com.gqk.protoss.model.BannerItemImageModel;
 import com.gqk.protoss.model.BannerItemModel;
 import com.gqk.protoss.model.ThemeImageModel;
@@ -35,6 +29,12 @@ public class MainService {
     @Autowired
     private ThemeMapper themeMapper;
 
+    @Autowired
+    private ThemeProductMapper themeProductMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
+
     public Result<BannerItemImageModel> getBanner(Integer id){
         List<BannerItemModel> bannerItemModelList = new ArrayList<>();
         List<BannerItem> bannerItemList =  bannerItemMapper.selectListByBannerId(id);
@@ -55,13 +55,19 @@ public class MainService {
         return Result.one(bannerItemImageModel);
     }
 
-    public Result<List<ThemeImageModel>> getTheme(Integer[] idList){
+    public List<ThemeImageModel> getTheme(Integer[] idList){
         List<ThemeImageModel> themeImageModelList = new ArrayList<>();
         for (Integer id:idList){
             if(id!=null){
                 ThemeImageModel themeImageModel = new ThemeImageModel();
                 Theme theme = themeMapper.selectByPrimaryKey(id);
-                themeImageModel.setTheme(theme);
+                themeImageModel.setId(theme.getId());
+                themeImageModel.setName(theme.getName());
+                themeImageModel.setDescription(theme.getDescription());
+                themeImageModel.setTopicImgId(theme.getTopicImgId());
+                themeImageModel.setDeleteTime(theme.getDeleteTime());
+                themeImageModel.setHeadImgId(theme.getHeadImgId());
+                themeImageModel.setUpdateTime(theme.getUpdateTime());
                 if (theme.getTopicImgId()!=null){
                     Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
                     if(topicImage.getFrom()==1){
@@ -79,6 +85,49 @@ public class MainService {
                 themeImageModelList.add(themeImageModel);
             }
         }
-        return Result.one(themeImageModelList);
+        return themeImageModelList;
+    }
+
+    public ThemeImageModel getThemeProducts(Integer id){
+        ThemeImageModel themeImageModel = new ThemeImageModel();
+        Theme theme = themeMapper.selectByPrimaryKey(id);
+        themeImageModel.setId(theme.getId());
+        themeImageModel.setName(theme.getName());
+        themeImageModel.setDescription(theme.getDescription());
+        themeImageModel.setTopicImgId(theme.getTopicImgId());
+        themeImageModel.setDeleteTime(theme.getDeleteTime());
+        themeImageModel.setHeadImgId(theme.getHeadImgId());
+        themeImageModel.setUpdateTime(theme.getUpdateTime());
+        List<ThemeProductKey> pruductIdList = themeProductMapper.selectProductIdByThemeId(id);
+        List<Product> productList = new ArrayList<>();
+        for (ThemeProductKey themeProductKey : pruductIdList){
+            Product product = productMapper.selectByPrimaryKey(themeProductKey.getProductId());
+            product.setMainImgUrl("http://47.99.218.29:8080/static/images"+product.getMainImgUrl());
+            productList.add(product);
+        }
+        themeImageModel.setProducts(productList);
+        if (theme.getTopicImgId()!=null){
+            Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
+            if(topicImage.getFrom()==1){
+                topicImage.setUrl("http://47.99.218.29:8080/static/images"+topicImage.getUrl());
+            }
+            themeImageModel.setTopicImage(topicImage);
+        }
+        if (theme.getHeadImgId()!=null){
+            Image headImage = imageMapper.selectByPrimaryKey(theme.getHeadImgId());
+            if(headImage.getFrom()==1){
+                headImage.setUrl("http://47.99.218.29:8080/static/images"+headImage.getUrl());
+            }
+            themeImageModel.setHeadImage(headImage);
+        }
+        return themeImageModel;
+    }
+
+    public List<Product> getProductRecent(Integer count){
+        List<Product> productList = productMapper.selectList();
+        for (Product product : productList){
+            product.setMainImgUrl("http://47.99.218.29:8080/static/images"+product.getMainImgUrl());
+        }
+        return productList;
     }
 }

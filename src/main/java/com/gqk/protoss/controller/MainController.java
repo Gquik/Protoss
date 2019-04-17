@@ -1,6 +1,7 @@
 package com.gqk.protoss.controller;
 
 import com.gqk.protoss.controller.rest.Result;
+import com.gqk.protoss.entity.Product;
 import com.gqk.protoss.model.BannerItemImageModel;
 import com.gqk.protoss.model.ThemeImageModel;
 import com.gqk.protoss.service.MainService;
@@ -25,9 +26,18 @@ public class MainController {
     }
 
     @RequestMapping(value = "theme",method = RequestMethod.GET)
-    public Result<List<ThemeImageModel>> getTheme(@RequestParam Integer[] idList) {
-        //Integer[] idList = new Integer[]{1,2,3};
+    public List<ThemeImageModel> getTheme(@RequestParam Integer[] idList) {
         return mainService.getTheme(idList);
+    }
+
+    @RequestMapping(value = "theme-products",method = RequestMethod.GET)
+    public ThemeImageModel getThemeProducts(@RequestParam Integer id) {
+        return mainService.getThemeProducts(id);
+    }
+
+    @RequestMapping(value = "product-recent",method = RequestMethod.GET)
+    public List<Product> getProductRecent(@RequestParam Integer count) {
+        return mainService.getProductRecent(count);
     }
 
 }

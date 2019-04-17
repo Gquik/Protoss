@@ -33,4 +33,9 @@
       </if>
     </trim>
   </insert>
+  <select id="selectProductIdByThemeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT theme_id,product_id
+    FROM theme_product
+    WHERE theme_id = #{themeId,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.gqk.protoss.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
 public class Product {
@@ -11,16 +13,21 @@ public class Product {
 
     private Integer stock;
 
+    @JsonIgnore
     private Integer deleteTime;
 
+    @JsonIgnore
     private Integer categoryId;
 
     private String mainImgUrl;
 
+    @JsonIgnore
     private Byte from;
 
+    @JsonIgnore
     private Integer createTime;
 
+    @JsonIgnore
     private Integer updateTime;
 
     private String summary;
