@@ -21,7 +21,7 @@ public class MainController {
     private MainService mainService;
 
     @RequestMapping(value = "banner",method = RequestMethod.GET)
-    public Result<BannerItemImageModel> getBanner(@RequestParam Integer id) {
+    public BannerItemImageModel getBanner(@RequestParam Integer id) {
         return mainService.getBanner(id);
     }
 

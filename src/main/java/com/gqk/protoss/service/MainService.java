@@ -1,6 +1,5 @@
 package com.gqk.protoss.service;
 
-import com.gqk.protoss.controller.rest.Result;
 import com.gqk.protoss.dao.*;
 import com.gqk.protoss.entity.*;
 import com.gqk.protoss.model.BannerItemImageModel;
@@ -35,7 +34,7 @@ public class MainService {
     @Autowired
     private ProductMapper productMapper;
 
-    public Result<BannerItemImageModel> getBanner(Integer id){
+    public BannerItemImageModel getBanner(Integer id){
         List<BannerItemModel> bannerItemModelList = new ArrayList<>();
         List<BannerItem> bannerItemList =  bannerItemMapper.selectListByBannerId(id);
         for (BannerItem bannerItem: bannerItemList ){
@@ -43,7 +42,7 @@ public class MainService {
             bannerItemModel.setBannerItem(bannerItem);
             Image image = imageMapper.selectByPrimaryKey(bannerItem.getImgId());
             if(image.getFrom()==1){
-                image.setUrl("http://47.99.218.29:8080/static/images"+image.getUrl());
+                image.setUrl("https://www.gquik.club:8443/static/images"+image.getUrl());
             }
             bannerItemModel.setImage(image);
             bannerItemModelList.add(bannerItemModel);
@@ -52,7 +51,7 @@ public class MainService {
         BannerItemImageModel bannerItemImageModel = new BannerItemImageModel() ;
         bannerItemImageModel.setBanner(banner);
         bannerItemImageModel.setItems(bannerItemModelList);
-        return Result.one(bannerItemImageModel);
+        return bannerItemImageModel;
     }
 
     public List<ThemeImageModel> getTheme(Integer[] idList){
@@ -71,14 +70,14 @@ public class MainService {
                 if (theme.getTopicImgId()!=null){
                     Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
                     if(topicImage.getFrom()==1){
-                        topicImage.setUrl("http://47.99.218.29:8080/static/images"+topicImage.getUrl());
+                        topicImage.setUrl("https://www.gquik.club:8443/static/images"+topicImage.getUrl());
                     }
                     themeImageModel.setTopicImage(topicImage);
                 }
                 if (theme.getHeadImgId()!=null){
                     Image headImage = imageMapper.selectByPrimaryKey(theme.getHeadImgId());
                     if(headImage.getFrom()==1){
-                        headImage.setUrl("http://47.99.218.29:8080/static/images"+headImage.getUrl());
+                        headImage.setUrl("https://www.gquik.club:8443/static/images"+headImage.getUrl());
                     }
                     themeImageModel.setHeadImage(headImage);
                 }
@@ -102,21 +101,21 @@ public class MainService {
         List<Product> productList = new ArrayList<>();
         for (ThemeProductKey themeProductKey : pruductIdList){
             Product product = productMapper.selectByPrimaryKey(themeProductKey.getProductId());
-            product.setMainImgUrl("http://47.99.218.29:8080/static/images"+product.getMainImgUrl());
+            product.setMainImgUrl("https://www.gquik.club:8443/static/images"+product.getMainImgUrl());
             productList.add(product);
         }
         themeImageModel.setProducts(productList);
         if (theme.getTopicImgId()!=null){
             Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
             if(topicImage.getFrom()==1){
-                topicImage.setUrl("http://47.99.218.29:8080/static/images"+topicImage.getUrl());
+                topicImage.setUrl("https://www.gquik.club:8443/static/images"+topicImage.getUrl());
             }
             themeImageModel.setTopicImage(topicImage);
         }
         if (theme.getHeadImgId()!=null){
             Image headImage = imageMapper.selectByPrimaryKey(theme.getHeadImgId());
             if(headImage.getFrom()==1){
-                headImage.setUrl("http://47.99.218.29:8080/static/images"+headImage.getUrl());
+                headImage.setUrl("https://www.gquik.club:8443/static/images"+headImage.getUrl());
             }
             themeImageModel.setHeadImage(headImage);
         }
@@ -126,7 +125,7 @@ public class MainService {
     public List<Product> getProductRecent(Integer count){
         List<Product> productList = productMapper.selectList();
         for (Product product : productList){
-            product.setMainImgUrl("http://47.99.218.29:8080/static/images"+product.getMainImgUrl());
+            product.setMainImgUrl("https://www.gquik.club:8443/static/images"+product.getMainImgUrl());
         }
         return productList;
     }
