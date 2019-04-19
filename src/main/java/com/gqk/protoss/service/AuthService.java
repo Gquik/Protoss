@@ -15,7 +15,6 @@ public class AuthService {
     private TokenService tokenService;
 
     public void getToken(String code){
-        logger.info("111111111111111code的内容："+code);
         if(code != null&&code != ""){
             try {
                 tokenService.get(code);
