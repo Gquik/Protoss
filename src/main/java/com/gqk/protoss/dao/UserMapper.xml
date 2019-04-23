@@ -16,23 +16,23 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from user
+    from `user`
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
+    delete from `user`
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gqk.protoss.entity.User" >
-    insert into user (id, openid, nickname, 
+    insert into `user` (id, openid, nickname,
       extend, delete_time, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{extend,jdbcType=VARCHAR}, #{deleteTime,jdbcType=INTEGER}, #{createTime,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.User" >
-    insert into user
+  <insert id="insertSelective" parameterType="com.gqk.protoss.entity.User" keyProperty="id" useGeneratedKeys="true">
+    insert into `user`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -81,7 +81,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gqk.protoss.entity.User" >
-    update user
+    update `user`
     <set >
       <if test="openid != null" >
         openid = #{openid,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gqk.protoss.entity.User" >
-    update user
+    update `user`
     set openid = #{openid,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       extend = #{extend,jdbcType=VARCHAR},
@@ -114,4 +114,10 @@
       update_time = #{updateTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from `user`
+    where openid = #{openId,jdbcType=VARCHAR}
+  </select>
 </mapper>

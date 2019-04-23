@@ -14,10 +14,11 @@ public class AuthService {
     @Autowired
     private TokenService tokenService;
 
-    public void getToken(String code){
+    public String getToken(String code){
+       String key="";
         if(code != null&&code != ""){
             try {
-                tokenService.get(code);
+                key = tokenService.get(code);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -26,5 +27,6 @@ public class AuthService {
             //错误信息，code不能为空
             System.err.println("code不能为空");
         }
+        return key;
     }
 }

@@ -1,6 +1,7 @@
 package com.gqk.protoss.controller;
 
 
+import com.gqk.protoss.model.TokenModel;
 import com.gqk.protoss.model.UserToken;
 import com.gqk.protoss.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ public class AuthController {
     private AuthService authService;
 
     @RequestMapping(value = "/token/user",method = RequestMethod.POST)
-    public void getToken(@RequestBody UserToken userToken){
+    public TokenModel getToken(@RequestBody UserToken userToken){
+        TokenModel tokenModel = new TokenModel();
         String code = userToken.getCode();
-        authService.getToken(code);
+        String token = authService.getToken(code);
+        tokenModel.setToken(token);
+        return tokenModel;
     }
 }

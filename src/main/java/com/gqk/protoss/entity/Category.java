@@ -1,5 +1,7 @@
 package com.gqk.protoss.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Category {
     private Integer id;
 
@@ -7,10 +9,12 @@ public class Category {
 
     private Integer topicImgId;
 
+    @JsonIgnore
     private Integer deleteTime;
 
     private String description;
 
+    @JsonIgnore
     private Integer updateTime;
 
     public Integer getId() {

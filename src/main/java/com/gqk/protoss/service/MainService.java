@@ -41,9 +41,6 @@ public class MainService {
             BannerItemModel bannerItemModel = new BannerItemModel();
             bannerItemModel.setBannerItem(bannerItem);
             Image image = imageMapper.selectByPrimaryKey(bannerItem.getImgId());
-            if(image.getFrom()==1){
-                image.setUrl("https://www.gquik.club:8443/static/images"+image.getUrl());
-            }
             bannerItemModel.setImage(image);
             bannerItemModelList.add(bannerItemModel);
         }
@@ -69,16 +66,10 @@ public class MainService {
                 themeImageModel.setUpdateTime(theme.getUpdateTime());
                 if (theme.getTopicImgId()!=null){
                     Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
-                    if(topicImage.getFrom()==1){
-                        topicImage.setUrl("https://www.gquik.club:8443/static/images"+topicImage.getUrl());
-                    }
                     themeImageModel.setTopicImage(topicImage);
                 }
                 if (theme.getHeadImgId()!=null){
                     Image headImage = imageMapper.selectByPrimaryKey(theme.getHeadImgId());
-                    if(headImage.getFrom()==1){
-                        headImage.setUrl("https://www.gquik.club:8443/static/images"+headImage.getUrl());
-                    }
                     themeImageModel.setHeadImage(headImage);
                 }
                 themeImageModelList.add(themeImageModel);
@@ -101,22 +92,15 @@ public class MainService {
         List<Product> productList = new ArrayList<>();
         for (ThemeProductKey themeProductKey : pruductIdList){
             Product product = productMapper.selectByPrimaryKey(themeProductKey.getProductId());
-            product.setMainImgUrl("https://www.gquik.club:8443/static/images"+product.getMainImgUrl());
             productList.add(product);
         }
         themeImageModel.setProducts(productList);
         if (theme.getTopicImgId()!=null){
             Image topicImage = imageMapper.selectByPrimaryKey(theme.getTopicImgId());
-            if(topicImage.getFrom()==1){
-                topicImage.setUrl("https://www.gquik.club:8443/static/images"+topicImage.getUrl());
-            }
             themeImageModel.setTopicImage(topicImage);
         }
         if (theme.getHeadImgId()!=null){
             Image headImage = imageMapper.selectByPrimaryKey(theme.getHeadImgId());
-            if(headImage.getFrom()==1){
-                headImage.setUrl("https://www.gquik.club:8443/static/images"+headImage.getUrl());
-            }
             themeImageModel.setHeadImage(headImage);
         }
         return themeImageModel;
@@ -124,9 +108,6 @@ public class MainService {
 
     public List<Product> getProductRecent(Integer count){
         List<Product> productList = productMapper.selectList();
-        for (Product product : productList){
-            product.setMainImgUrl("https://www.gquik.club:8443/static/images"+product.getMainImgUrl());
-        }
         return productList;
     }
 }

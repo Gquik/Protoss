@@ -1,6 +1,5 @@
 package com.gqk.protoss.controller;
 
-import com.gqk.protoss.controller.rest.Result;
 import com.gqk.protoss.entity.Product;
 import com.gqk.protoss.model.BannerItemImageModel;
 import com.gqk.protoss.model.ThemeImageModel;
@@ -39,5 +38,6 @@ public class MainController {
     public List<Product> getProductRecent(@RequestParam Integer count) {
         return mainService.getProductRecent(count);
     }
+
 
 }
