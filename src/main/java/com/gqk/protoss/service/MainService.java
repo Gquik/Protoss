@@ -2,9 +2,7 @@ package com.gqk.protoss.service;
 
 import com.gqk.protoss.dao.*;
 import com.gqk.protoss.entity.*;
-import com.gqk.protoss.model.BannerItemImageModel;
-import com.gqk.protoss.model.BannerItemModel;
-import com.gqk.protoss.model.ThemeImageModel;
+import com.gqk.protoss.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,12 @@ public class MainService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private ProductImageMapper productImageMapper;
+
+    @Autowired
+    private ProductPropertyMapper productPropertyMapper;
 
     public BannerItemImageModel getBanner(Integer id){
         List<BannerItemModel> bannerItemModelList = new ArrayList<>();
@@ -109,5 +113,45 @@ public class MainService {
     public List<Product> getProductRecent(Integer count){
         List<Product> productList = productMapper.selectList();
         return productList;
+    }
+
+    public List<Product> getAllProductInCategory(Integer categoryId){
+        List<Product> productList = productMapper.selectListByCategoryId(categoryId);
+        return productList;
+    }
+
+    public ProductImageProModel getProductDetail(Integer id){
+        ProductImageProModel productImageProModel = new ProductImageProModel();
+        Product product = productMapper.selectByPrimaryKey(id);
+        productImageProModel.setId(product.getId());
+        productImageProModel.setName(product.getName());
+        productImageProModel.setPrice(product.getPrice());
+        productImageProModel.setPrice(product.getPrice());
+        productImageProModel.setStock(product.getStock());
+        productImageProModel.setCategoryId(product.getCategoryId());
+        productImageProModel.setMainImgUrl(product.getMainImgUrl());
+        productImageProModel.setImgId(product.getImgId());
+        List<ProductImage> productImageList = productImageMapper.selectByProductId(id);
+        List<ProductImageModel> productImageModelList = new ArrayList<>();
+        ProductImageModel productImageModel = null;
+        for (ProductImage productImage:productImageList){
+            if(productImage!=null){
+                if (productImage.getImgId()!=null){
+                    productImageModel = new ProductImageModel();
+                    Image image = imageMapper.selectByPrimaryKey(productImage.getImgId());
+                    productImageModel.setId(productImage.getId());
+                    productImageModel.setImgId(productImage.getImgId());
+                    productImageModel.setOrder(productImage.getOrder());
+                    productImageModel.setProductId(productImage.getProductId());
+                    productImageModel.setImage(image);
+                    productImageModelList.add(productImageModel);
+                }
+            }
+
+        }
+        productImageProModel.setProductImageModelList(productImageModelList);
+        List<ProductProperty> productPropertyList = productPropertyMapper.selectByProductId(id);
+        productImageProModel.setProductPropertyList(productPropertyList);
+        return productImageProModel;
     }
 }

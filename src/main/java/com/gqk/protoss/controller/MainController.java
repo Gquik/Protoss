@@ -2,6 +2,7 @@ package com.gqk.protoss.controller;
 
 import com.gqk.protoss.entity.Product;
 import com.gqk.protoss.model.BannerItemImageModel;
+import com.gqk.protoss.model.ProductImageProModel;
 import com.gqk.protoss.model.ThemeImageModel;
 import com.gqk.protoss.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,14 @@ public class MainController {
         return mainService.getProductRecent(count);
     }
 
+    @RequestMapping(value = "product/by_category",method = RequestMethod.GET)
+    public List<Product> getAllProductInCategory(@RequestParam Integer id) {
+        return mainService.getAllProductInCategory(id);
+    }
+
+    @RequestMapping(value = "product-detail",method = RequestMethod.GET)
+    public ProductImageProModel getProductDetail(@RequestParam Integer id) {
+        return mainService.getProductDetail(id);
+    }
 
 }

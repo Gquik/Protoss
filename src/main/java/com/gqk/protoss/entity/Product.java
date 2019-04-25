@@ -30,6 +30,7 @@ public class Product {
     @JsonIgnore
     private Integer updateTime;
 
+    @JsonIgnore
     private String summary;
 
     private Integer imgId;

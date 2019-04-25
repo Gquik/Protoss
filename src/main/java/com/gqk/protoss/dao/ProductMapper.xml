@@ -182,4 +182,12 @@
     ORDER BY id DESC
     limit 15
   </select>
+
+  <select id="selectListByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM product
+    WHERE
+    category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
 </mapper>
