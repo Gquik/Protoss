@@ -1,6 +1,7 @@
 package com.gqk.protoss.service.token;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gqk.protoss.model.TokenCacheModel;
 import com.gqk.protoss.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class CacheUtil {
         logger.info("###缓存后内容为："+cache.get(key).get());
     }
     //读取缓存
-    public String readCache(String key)throws Exception{
+    public TokenCacheModel readCache(String key)throws Exception{
         Cache cache = cacheManager.getCache("userCache");
         if(cache==null){
             throw new Exception("服务器缓存异常");
@@ -41,8 +42,15 @@ public class CacheUtil {
         Object object =cache.get(key).get();
         logger.info("从缓存中拿出来："+object);
         Map map = JSONUtil.objectToMap(object);
+        TokenCacheModel tokenCacheModel = new TokenCacheModel();
         String uid = map.get("uid").toString();
-        //String openid = map.get("openid").toString();
-        return uid;
+        String openId = map.get("openid").toString();
+        String scope = map.get("scope").toString();
+        String sessionKey = map.get("session_key").toString();
+        tokenCacheModel.setUid(uid);
+        tokenCacheModel.setOpenId(openId);
+        tokenCacheModel.setScope(scope);
+        tokenCacheModel.setSessionKey(sessionKey);
+        return tokenCacheModel;
     }
 }

@@ -168,10 +168,13 @@ public class MainService {
     }
 
     public void createOrUpdateAddr(UserAddress userAddress,String token) throws Exception{
-        //从httpheader获取token
         logger.info("获取到前端传过来的token令牌："+token);
         //用token去缓存中找对应的uid
-        String uid = tokenService.getUidFromCacha(token);
+        TokenCacheModel tokenCacheModel =tokenService.getMsgFromCacha(token);
+        String uid ="";
+        if (tokenCacheModel!=null){
+            uid=tokenCacheModel.getUid();
+        }
         int userId = Integer.parseInt(uid);
         User user = userMapper.selectByPrimaryKey(userId);
         if (user!=null && userAddress!=null){
@@ -180,9 +183,11 @@ public class MainService {
             userAddress.setUpdateTime(Integer.parseInt(sdf.format(new Date())));
             UserAddress userAddress1 = userAddressMapper.selectByUserId(userId);
             if (userAddress1==null){
+                logger.info("用户地址表为空，插入数据");
                 userAddressMapper.insertSelective(userAddress);
             }else {
                 userAddress.setId(userAddress1.getId());
+                logger.info("用户地址表非空，更新数据");
                 userAddressMapper.updateByPrimaryKeySelective(userAddress);
             }
         }else {

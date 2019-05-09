@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gqk.protoss.dao.UserMapper;
 import com.gqk.protoss.entity.User;
+import com.gqk.protoss.entity.enums.ScopeEnum;
+import com.gqk.protoss.model.TokenCacheModel;
 import com.gqk.protoss.util.ApplicationContextUtil;
 import com.gqk.protoss.util.HttpClientUtil;
 import com.gqk.protoss.util.JSONUtil;
@@ -79,7 +81,7 @@ public class TokenService extends Token{
             logger.info("222222222222222222222222222user1.getId()"+user1.getId());
         }
         tokenMap.put("uid",uid);
-        tokenMap.put("scope",16);
+        tokenMap.put("scope", ScopeEnum.USER.getValue());
         String key = generateToken();
         JSONObject value = JSONUtil.mapToJson(tokenMap);
         //写入缓存
@@ -88,9 +90,8 @@ public class TokenService extends Token{
         return key;
     }
 
-    public String getUidFromCacha(String key) throws Exception{
-        String uid = cacheUtil.readCache(key);
-        return uid;
+    public TokenCacheModel getMsgFromCacha(String key) throws Exception{
+        return cacheUtil.readCache(key);
     }
 
 }

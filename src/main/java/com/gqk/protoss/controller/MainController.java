@@ -54,6 +54,7 @@ public class MainController {
 
     @RequestMapping(value = "address",method = RequestMethod.POST)
     public void createOrUpdateAddr(@RequestBody UserAddress userAddress, HttpServletRequest httpServletRequest) throws Exception{
+        //从请求头中获取token
         String token = httpServletRequest.getHeader("token");
         mainService.createOrUpdateAddr(userAddress,token);
     }
