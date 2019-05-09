@@ -32,4 +32,8 @@ public class Token {
         }
         return str;
     }
+
+    public static String getCurrentTokenVar(String key){
+        return null;
+    }
 }

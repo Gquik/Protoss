@@ -10,12 +10,9 @@ import com.gqk.protoss.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Map;
 
 @Service
@@ -25,8 +22,8 @@ public class TokenService extends Token{
     @Autowired
     private UserMapper userMapper;
 
-    @Resource
-    private CacheManager cacheManager;
+    @Autowired
+    private CacheUtil cacheUtil;
 
     private String getUserToken(String code) {
         ApplicationContext applicationContext = ApplicationContextUtil.getApplicationContext();
@@ -85,13 +82,15 @@ public class TokenService extends Token{
         tokenMap.put("scope",16);
         String key = generateToken();
         JSONObject value = JSONUtil.mapToJson(tokenMap);
-        //String expire = applicationContext.getEnvironment().getProperty("token.config.expire");
-        Cache cache = cacheManager.getCache("userCache");
-        cache.put(key, value);
-        if(cache==null){
-            throw new Exception("服务器缓存异常");
-        }
-
+        //写入缓存
+        //CacheUtil.writeCache(key,value.toString());
+        cacheUtil.writeCache(key,value);
         return key;
     }
+
+    public String getUidFromCacha(String key) throws Exception{
+        String uid = cacheUtil.readCache(key);
+        return uid;
+    }
+
 }

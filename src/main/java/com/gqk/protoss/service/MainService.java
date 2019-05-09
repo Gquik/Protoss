@@ -3,12 +3,15 @@ package com.gqk.protoss.service;
 import com.gqk.protoss.dao.*;
 import com.gqk.protoss.entity.*;
 import com.gqk.protoss.model.*;
+import com.gqk.protoss.service.token.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,6 +40,15 @@ public class MainService {
 
     @Autowired
     private ProductPropertyMapper productPropertyMapper;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private UserAddressMapper userAddressMapper;
 
     public BannerItemImageModel getBanner(Integer id){
         List<BannerItemModel> bannerItemModelList = new ArrayList<>();
@@ -153,5 +165,28 @@ public class MainService {
         List<ProductProperty> productPropertyList = productPropertyMapper.selectByProductId(id);
         productImageProModel.setProductPropertyList(productPropertyList);
         return productImageProModel;
+    }
+
+    public void createOrUpdateAddr(UserAddress userAddress,String token) throws Exception{
+        //从httpheader获取token
+        logger.info("获取到前端传过来的token令牌："+token);
+        //用token去缓存中找对应的uid
+        String uid = tokenService.getUidFromCacha(token);
+        int userId = Integer.parseInt(uid);
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (user!=null && userAddress!=null){
+            userAddress.setUserId(userId);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            userAddress.setUpdateTime(Integer.parseInt(sdf.format(new Date())));
+            UserAddress userAddress1 = userAddressMapper.selectByUserId(userId);
+            if (userAddress1==null){
+                userAddressMapper.insertSelective(userAddress);
+            }else {
+                userAddress.setId(userAddress1.getId());
+                userAddressMapper.updateByPrimaryKeySelective(userAddress);
+            }
+        }else {
+            throw new Exception("用户不存在或者用户地址不存在");
+        }
     }
 }

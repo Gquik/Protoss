@@ -27,6 +27,7 @@ public class AuthService {
             //错误信息，code不能为空
             System.err.println("code不能为空");
         }
+        logger.info("登陆的时候传给前台的token为："+key);
         return key;
     }
 }

@@ -1,6 +1,7 @@
 package com.gqk.protoss.controller;
 
 import com.gqk.protoss.entity.Product;
+import com.gqk.protoss.entity.UserAddress;
 import com.gqk.protoss.model.BannerItemImageModel;
 import com.gqk.protoss.model.ProductImageProModel;
 import com.gqk.protoss.model.ThemeImageModel;
@@ -8,6 +9,7 @@ import com.gqk.protoss.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -48,6 +50,12 @@ public class MainController {
     @RequestMapping(value = "product-detail",method = RequestMethod.GET)
     public ProductImageProModel getProductDetail(@RequestParam Integer id) {
         return mainService.getProductDetail(id);
+    }
+
+    @RequestMapping(value = "address",method = RequestMethod.POST)
+    public void createOrUpdateAddr(@RequestBody UserAddress userAddress, HttpServletRequest httpServletRequest) throws Exception{
+        String token = httpServletRequest.getHeader("token");
+        mainService.createOrUpdateAddr(userAddress,token);
     }
 
 }

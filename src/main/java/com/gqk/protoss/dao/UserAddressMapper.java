@@ -1,7 +1,9 @@
 package com.gqk.protoss.dao;
 
 import com.gqk.protoss.entity.UserAddress;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserAddressMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface UserAddressMapper {
     int updateByPrimaryKeySelective(UserAddress record);
 
     int updateByPrimaryKey(UserAddress record);
+
+    UserAddress selectByUserId(Integer userId);
 }
