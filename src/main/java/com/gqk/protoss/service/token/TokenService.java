@@ -14,7 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Service
@@ -90,8 +93,11 @@ public class TokenService extends Token{
         return key;
     }
 
-    public TokenCacheModel getMsgFromCacha(String key) throws Exception{
-        return cacheUtil.readCache(key);
+    public TokenCacheModel getMsgFromCacha() throws Exception{
+        HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String token = req.getHeader("token");
+        logger.info("从前端传过来的token："+token);
+        return cacheUtil.readCache(token);
     }
 
 }

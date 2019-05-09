@@ -167,10 +167,9 @@ public class MainService {
         return productImageProModel;
     }
 
-    public void createOrUpdateAddr(UserAddress userAddress,String token) throws Exception{
-        logger.info("获取到前端传过来的token令牌："+token);
+    public void createOrUpdateAddr(UserAddress userAddress) throws Exception{
         //用token去缓存中找对应的uid
-        TokenCacheModel tokenCacheModel =tokenService.getMsgFromCacha(token);
+        TokenCacheModel tokenCacheModel =tokenService.getMsgFromCacha();
         String uid ="";
         if (tokenCacheModel!=null){
             uid=tokenCacheModel.getUid();
