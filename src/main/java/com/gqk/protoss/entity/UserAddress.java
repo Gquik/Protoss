@@ -1,6 +1,12 @@
 package com.gqk.protoss.entity;
 
-public class UserAddress {
+import java.io.Serializable;
+import java.util.Date;
+
+public class UserAddress implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     private String name;
@@ -19,7 +25,7 @@ public class UserAddress {
 
     private Integer userId;
 
-    private Integer updateTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -93,11 +99,11 @@ public class UserAddress {
         this.userId = userId;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }

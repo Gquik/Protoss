@@ -7,8 +7,8 @@
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="extend" property="extend" jdbcType="VARCHAR" />
     <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="INTEGER" />
-    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, openid, nickname, extend, delete_time, create_time, update_time
@@ -28,8 +28,8 @@
       extend, delete_time, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{extend,jdbcType=VARCHAR}, #{deleteTime,jdbcType=INTEGER}, #{createTime,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=INTEGER})
+      #{extend,jdbcType=VARCHAR}, #{deleteTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gqk.protoss.entity.User" keyProperty="id" useGeneratedKeys="true">
     insert into `user`
@@ -73,10 +73,10 @@
         #{deleteTime,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=INTEGER},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -96,10 +96,10 @@
         delete_time = #{deleteTime,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=INTEGER},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -110,8 +110,8 @@
       nickname = #{nickname,jdbcType=VARCHAR},
       extend = #{extend,jdbcType=VARCHAR},
       delete_time = #{deleteTime,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=INTEGER}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">

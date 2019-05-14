@@ -47,20 +47,8 @@ public class TokenService extends Token{
         if(result==null||result==""){
             throw new Exception("获取session_key及open_id异常 微信内部错误");
         }else {
-            //请求失败的错误码
-            /*if (tokenMap.get("errcode").toString()=="-1"){
-                throw new Exception("系统繁忙，此时请开发者稍候再试["+tokenMap.get("errmsg")+"]");
-            }else if (tokenMap.get("errcode").toString()=="40029"){
-                throw new Exception("code 无效["+tokenMap.get("errmsg")+"]");
-            }else if (tokenMap.get("errcode").toString()=="45011"){
-                throw new Exception("频率限制，每个用户每分钟100次["+tokenMap.get("errmsg")+"]");
-            }else if (tokenMap.get("errcode").toString()=="0"|| tokenMap.get("errcode").toString()==null){*/
                 //请求成功后处理
-            logger.info("1111获取session_key及open_id的内容："+result);
-                key = sendToken(tokenMap.get("openid").toString(),tokenMap);
-
-            //}
-            logger.info("2222获取session_key及open_id的内容："+result);
+            key = sendToken(tokenMap.get("openid").toString(),tokenMap);
         }
         return key;
     }
@@ -74,21 +62,17 @@ public class TokenService extends Token{
         int uid;
         if (user!=null){
             uid = user.getId();
-            logger.info("1111111111111111111111111111uid"+uid);
         }else {
             User user1 = new User();
             user1.setOpenid(openId);
-            logger.info("111111111111111111111111111user1.getId()"+user1.getId());
             userMapper.insertSelective(user1);
             uid = user1.getId();
-            logger.info("222222222222222222222222222user1.getId()"+user1.getId());
         }
         tokenMap.put("uid",uid);
         tokenMap.put("scope", ScopeEnum.USER.getValue());
         String key = generateToken();
         JSONObject value = JSONUtil.mapToJson(tokenMap);
         //写入缓存
-        //CacheUtil.writeCache(key,value.toString());
         cacheUtil.writeCache(key,value);
         return key;
     }

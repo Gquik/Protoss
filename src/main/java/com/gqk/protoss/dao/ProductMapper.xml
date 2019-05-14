@@ -10,8 +10,8 @@
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="main_img_url" property="mainImgUrl" jdbcType="VARCHAR" />
     <result column="from" property="from" jdbcType="TINYINT" />
-    <result column="create_time" property="createTime" jdbcType="INTEGER" />
-    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="img_id" property="imgId" jdbcType="INTEGER" />
   </resultMap>
@@ -37,8 +37,8 @@
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
       #{stock,jdbcType=INTEGER}, #{deleteTime,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
-      #{mainImgUrl,jdbcType=VARCHAR}, #{from,jdbcType=TINYINT}, #{createTime,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{imgId,jdbcType=INTEGER}
+      #{mainImgUrl,jdbcType=VARCHAR}, #{from,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{summary,jdbcType=VARCHAR}, #{imgId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gqk.protoss.entity.Product" >
@@ -107,10 +107,10 @@
         #{from,jdbcType=TINYINT},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=INTEGER},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="summary != null" >
         #{summary,jdbcType=VARCHAR},
@@ -145,10 +145,10 @@
         `from` = #{from,jdbcType=TINYINT},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=INTEGER},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="summary != null" >
         summary = #{summary,jdbcType=VARCHAR},
@@ -168,8 +168,8 @@
       category_id = #{categoryId,jdbcType=INTEGER},
       main_img_url = #{mainImgUrl,jdbcType=VARCHAR},
       `from` = #{from,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       summary = #{summary,jdbcType=VARCHAR},
       img_id = #{imgId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

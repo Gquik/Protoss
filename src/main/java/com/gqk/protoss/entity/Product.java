@@ -3,6 +3,7 @@ package com.gqk.protoss.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Product {
     private Integer id;
@@ -25,10 +26,10 @@ public class Product {
     private Byte from;
 
     @JsonIgnore
-    private Integer createTime;
+    private Date createTime;
 
     @JsonIgnore
-    private Integer updateTime;
+    private Date updateTime;
 
     @JsonIgnore
     private String summary;
@@ -99,19 +100,19 @@ public class Product {
         this.from = from;
     }
 
-    public Integer getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

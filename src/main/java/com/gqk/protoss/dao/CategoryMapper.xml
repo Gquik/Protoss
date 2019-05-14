@@ -7,7 +7,7 @@
     <result column="topic_img_id" property="topicImgId" jdbcType="INTEGER" />
     <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, topic_img_id, delete_time, description, update_time
@@ -27,7 +27,7 @@
       delete_time, description, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{topicImgId,jdbcType=INTEGER}, 
-      #{deleteTime,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{updateTime,jdbcType=INTEGER}
+      #{deleteTime,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gqk.protoss.entity.Category" >
@@ -69,7 +69,7 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=INTEGER},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -89,7 +89,7 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=INTEGER},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -100,7 +100,7 @@
       topic_img_id = #{topicImgId,jdbcType=INTEGER},
       delete_time = #{deleteTime,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectList" resultMap="BaseResultMap" >

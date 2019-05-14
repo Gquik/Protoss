@@ -7,7 +7,7 @@
     <result column="detail" property="detail" jdbcType="VARCHAR" />
     <result column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
-    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, `name`, detail, product_id, delete_time, update_time
@@ -27,7 +27,7 @@
       product_id, delete_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
-      #{productId,jdbcType=INTEGER}, #{deleteTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER}
+      #{productId,jdbcType=INTEGER}, #{deleteTime,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gqk.protoss.entity.ProductProperty" >
@@ -69,7 +69,7 @@
         #{deleteTime,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=INTEGER},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -89,7 +89,7 @@
         delete_time = #{deleteTime,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=INTEGER},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -100,7 +100,7 @@
       detail = #{detail,jdbcType=VARCHAR},
       product_id = #{productId,jdbcType=INTEGER},
       delete_time = #{deleteTime,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByProductId" resultMap="BaseResultMap" parameterType="java.lang.Integer">

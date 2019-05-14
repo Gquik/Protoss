@@ -1,11 +1,13 @@
 package com.gqk.protoss.entity;
 
+import java.util.Date;
+
 public class OrderProduct extends OrderProductKey {
     private Integer count;
 
     private Integer deleteTime;
 
-    private Integer updateTime;
+    private Date updateTime;
 
     public Integer getCount() {
         return count;
@@ -23,11 +25,11 @@ public class OrderProduct extends OrderProductKey {
         this.deleteTime = deleteTime;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }

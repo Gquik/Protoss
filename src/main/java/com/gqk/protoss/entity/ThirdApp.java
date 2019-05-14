@@ -1,5 +1,7 @@
 package com.gqk.protoss.entity;
 
+import java.util.Date;
+
 public class ThirdApp {
     private Integer id;
 
@@ -15,7 +17,7 @@ public class ThirdApp {
 
     private Integer deleteTime;
 
-    private Integer updateTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -73,11 +75,11 @@ public class ThirdApp {
         this.deleteTime = deleteTime;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }

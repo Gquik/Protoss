@@ -2,15 +2,11 @@ package com.gqk.protoss.controller.rest;
 
 public abstract class AbstractResult {
     private int code;
-    private String message;
+    private String msg;
 
-    public AbstractResult(int code) {
+    public AbstractResult(int code, String msg) {
         this.code = code;
-    }
-
-    public AbstractResult(int code, String message) {
-        this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public int getCode() {
@@ -21,11 +17,12 @@ public abstract class AbstractResult {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
+
 }

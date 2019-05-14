@@ -8,7 +8,7 @@
     <result column="type" property="type" jdbcType="TINYINT" />
     <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
     <result column="banner_id" property="bannerId" jdbcType="INTEGER" />
-    <result column="update_time" property="updateTime" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, img_id, key_word, type, delete_time, banner_id, update_time
@@ -29,7 +29,7 @@
       update_time)
     values (#{id,jdbcType=INTEGER}, #{imgId,jdbcType=INTEGER}, #{keyWord,jdbcType=VARCHAR}, 
       #{type,jdbcType=TINYINT}, #{deleteTime,jdbcType=INTEGER}, #{bannerId,jdbcType=INTEGER}, 
-      #{updateTime,jdbcType=INTEGER})
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gqk.protoss.entity.BannerItem" >
     insert into banner_item
@@ -76,7 +76,7 @@
         #{bannerId,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=INTEGER},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -99,7 +99,7 @@
         banner_id = #{bannerId,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=INTEGER},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -111,7 +111,7 @@
       type = #{type,jdbcType=TINYINT},
       delete_time = #{deleteTime,jdbcType=INTEGER},
       banner_id = #{bannerId,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

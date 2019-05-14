@@ -1,6 +1,7 @@
 package com.gqk.protoss.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Order {
     private Integer id;
@@ -11,7 +12,7 @@ public class Order {
 
     private Integer deleteTime;
 
-    private Integer createTime;
+    private Date createTime;
 
     private BigDecimal totalPrice;
 
@@ -23,7 +24,7 @@ public class Order {
 
     private Integer totalCount;
 
-    private Integer updateTime;
+    private Date updateTime;
 
     private String snapAddress;
 
@@ -63,11 +64,11 @@ public class Order {
         this.deleteTime = deleteTime;
     }
 
-    public Integer getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -111,11 +112,11 @@ public class Order {
         this.totalCount = totalCount;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

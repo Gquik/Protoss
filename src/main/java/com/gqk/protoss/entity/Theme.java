@@ -2,6 +2,8 @@ package com.gqk.protoss.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Date;
+
 public class Theme {
     private Integer id;
 
@@ -19,7 +21,7 @@ public class Theme {
     private Integer headImgId;
 
     @JsonIgnore
-    private Integer updateTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -69,11 +71,11 @@ public class Theme {
         this.headImgId = headImgId;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }

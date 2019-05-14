@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -178,8 +176,6 @@ public class MainService {
         User user = userMapper.selectByPrimaryKey(userId);
         if (user!=null && userAddress!=null){
             userAddress.setUserId(userId);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            userAddress.setUpdateTime(Integer.parseInt(sdf.format(new Date())));
             UserAddress userAddress1 = userAddressMapper.selectByUserId(userId);
             if (userAddress1==null){
                 logger.info("用户地址表为空，插入数据");

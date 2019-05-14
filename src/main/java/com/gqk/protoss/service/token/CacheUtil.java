@@ -36,9 +36,6 @@ public class CacheUtil {
         if(cache==null){
             throw new Exception("服务器缓存异常");
         }
-        /*Cache.ValueWrapper value=cache.get(key);
-        logger.info("从缓存中拿出来个什么玩意哦1："+value);
-        logger.info("从缓存中拿出来个什么玩意哦2："+value.toString());*/
         Object object =cache.get(key).get();
         logger.info("从缓存中拿出来："+object);
         Map map = JSONUtil.objectToMap(object);
