@@ -37,7 +37,7 @@ public class TokenService extends Token{
         //https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
         return  "https://api.weixin.qq.com/sns/jscode2session?appid="+wxAppId+"&secret="+wxAppSecret+"&js_code="+code+"&grant_type=authorization_code";
     }
-    public String get(String code) throws Exception{
+    public String getKey(String code){
         logger.info("1111code的内容："+code);
         String wxLoginUrl = getUserToken(code);
         String result = HttpClientUtil.doGet(wxLoginUrl);
@@ -45,14 +45,14 @@ public class TokenService extends Token{
         Map tokenMap = (Map) JSON.parse(result);
         String key ="";
         if(result==null||result==""){
-            throw new Exception("获取session_key及open_id异常 微信内部错误");
+            throw new RuntimeException("获取session_key及open_id异常 微信内部错误");
         }else {
                 //请求成功后处理
             key = sendToken(tokenMap.get("openid").toString(),tokenMap);
         }
         return key;
     }
-    private String sendToken(String openId,Map tokenMap) throws Exception{
+    private String sendToken(String openId,Map tokenMap){
         //拿到openId
         //数据库看一下，openid是否存在
         //如果存在，则不处理，如果不存在则新增一条user记录
@@ -77,7 +77,7 @@ public class TokenService extends Token{
         return key;
     }
 
-    public TokenCacheModel getMsgFromCacha() throws Exception{
+    public TokenCacheModel getMsgFromCacha(){
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = req.getHeader("token");
         logger.info("从前端传过来的token："+token);

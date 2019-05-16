@@ -52,7 +52,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "address",method = RequestMethod.POST)
-    public void createOrUpdateAddr(@RequestBody UserAddress userAddress) throws Exception{
+    public void createOrUpdateAddr(@RequestBody UserAddress userAddress){
         mainService.createOrUpdateAddr(userAddress);
     }
 

@@ -3,6 +3,7 @@ package com.gqk.protoss.service;
 import com.gqk.protoss.dao.*;
 import com.gqk.protoss.entity.*;
 import com.gqk.protoss.model.*;
+import com.gqk.protoss.service.exceptions.OrderException;
 import com.gqk.protoss.service.token.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -165,7 +166,7 @@ public class MainService {
         return productImageProModel;
     }
 
-    public void createOrUpdateAddr(UserAddress userAddress) throws Exception{
+    public void createOrUpdateAddr(UserAddress userAddress){
         //用token去缓存中找对应的uid
         TokenCacheModel tokenCacheModel =tokenService.getMsgFromCacha();
         String uid ="";
@@ -186,7 +187,7 @@ public class MainService {
                 userAddressMapper.updateByPrimaryKeySelective(userAddress);
             }
         }else {
-            throw new Exception("用户不存在或者用户地址不存在");
+            throw new OrderException("用户不存在或者用户地址不存在");
         }
     }
 }

@@ -12,16 +12,16 @@ import com.gqk.protoss.entity.OrderProduct;
 import com.gqk.protoss.entity.Product;
 import com.gqk.protoss.entity.UserAddress;
 import com.gqk.protoss.model.TokenCacheModel;
+import com.gqk.protoss.service.exceptions.ErrorCode;
+import com.gqk.protoss.service.exceptions.OrderException;
 import com.gqk.protoss.service.token.TokenService;
 import com.gqk.protoss.util.OrderNumUtil;
-import com.gqk.protoss.util.SerializeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class OrderService {
@@ -42,7 +42,8 @@ public class OrderService {
     private OrderProductMapper orderProductMapper;
 
     //客户端传过来的订单商品信息
-    private List<OrderCondition> opList;
+    //private List<OrderCondition> opList;
+    private List<OrderProduct> opList;
 
     //查询数据库的详细商品信息
     private List<Product> pList =new ArrayList<>();
@@ -50,7 +51,7 @@ public class OrderService {
     //对应的用户ID
     private int userId;
 
-    public Result placeOrder(OrderProductsCondition orderProductsCondition) throws Exception{
+    public Result placeOrder(OrderProductsCondition orderProductsCondition){
         TokenCacheModel tokenCacheModel =tokenService.getMsgFromCacha();
         String uid ="";
         if (tokenCacheModel!=null){
@@ -81,14 +82,12 @@ public class OrderService {
             //order.setSnapItems(SerializeUtil.serialize(snapCondition.getProductsConditionList()));
             order.setSnapItems(JSONObject.toJSONString(snapCondition.getProductsConditionList()));
             orderMapper.insertSelective(order);
-            //补全orderProduct订单关联信息并写入order_product表
-            for (OrderCondition orderCondition : opList){
-                OrderProduct orderProduct = new OrderProduct();
+            //订单关联信息并写入order_product表
+            for (OrderProduct orderProduct : opList){
                 orderProduct.setOrderId(order.getId());
-                orderProduct.setProductId(orderCondition.getProductId());
-                orderProduct.setCount(orderCondition.getCount());
                 orderProductMapper.insertSelective(orderProduct);
             }
+
             statusCondition.setOrderId(order.getId());
         }catch (Exception e){
             e.printStackTrace();
@@ -97,12 +96,12 @@ public class OrderService {
     }
 
     //生成订单快照
-    private SnapCondition snapOrder(StatusCondition statusCondition) throws Exception{
+    private SnapCondition snapOrder(StatusCondition statusCondition){
         SnapCondition snapCondition = new SnapCondition();
         snapCondition.setOrderPrice(statusCondition.getOrderPrice());
         snapCondition.setTotalCount(statusCondition.getOrderCount());
         snapCondition.setProductsConditionList(statusCondition.getProductsConditionList());
-        snapCondition.setSnapAddress(this.getUserAddress());
+        snapCondition.setSnapAddress(getUserAddress());
         snapCondition.setSnapName(pList.get(0).getName());
         snapCondition.setSnapImg(pList.get(0).getMainImgUrl());
         //种类数量大于1，要在订单名称后面加个“等”
@@ -113,10 +112,10 @@ public class OrderService {
     }
 
     //获取用户地址并序列化成String返回
-    private String getUserAddress() throws Exception{
+    private String getUserAddress(){
         UserAddress userAddress =userAddressMapper.selectByUserId(userId);
         if (userAddress==null){
-            throw new Exception("用户收货地址不存在，下单失败");
+            throw new OrderException(ErrorCode.ORDER_ADDRESS_NOT_EXIST);
         }
         //暂时不做序列化，直接对象转jsonString
         //String snapAddress = SerializeUtil.serialize(userAddress);
@@ -137,7 +136,7 @@ public class OrderService {
         }
         BigDecimal orderPrice = new BigDecimal(0.00);
         int orderCount = 0;
-        for (OrderCondition orderProduct : opList) {
+        for (OrderProduct orderProduct : opList) {
             if (orderProduct.getProductId() == 0 || orderProduct.getCount() <= 0) {
                 statusCondition.setPass(false);
                 statusCondition.setErrorMsg("订单信息有误请重新下单");
@@ -174,6 +173,15 @@ public class OrderService {
         statusCondition.setOrderPrice(orderPrice);
         statusCondition.setOrderCount(orderCount);
         statusCondition.setProductsConditionList(productsConditionList);
+        return statusCondition;
+    }
+
+    //对外提供库存量检测的方法
+    public StatusCondition checkOrderStock(int orderId){
+        List<OrderProduct> orderProductList =orderProductMapper.selectByOrderId(orderId);
+        OrderProductsCondition orderProductsCondition = new OrderProductsCondition();
+        orderProductsCondition.setOrderList(orderProductList);
+        StatusCondition statusCondition = getProductsByOrder(orderProductsCondition);
         return statusCondition;
     }
 }

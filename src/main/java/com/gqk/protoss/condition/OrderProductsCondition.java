@@ -1,15 +1,17 @@
 package com.gqk.protoss.condition;
 
+import com.gqk.protoss.entity.OrderProduct;
+
 import java.util.List;
 
 public class OrderProductsCondition {
-    private List<OrderCondition> orderList;
+    private List<OrderProduct> orderList;
 
-    public List<OrderCondition> getOrderList() {
+    public List<OrderProduct> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(List<OrderCondition> orderList) {
+    public void setOrderList(List<OrderProduct> orderList) {
         this.orderList = orderList;
     }
 }

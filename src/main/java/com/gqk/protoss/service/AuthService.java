@@ -18,7 +18,7 @@ public class AuthService {
        String key="";
         if(code != null&&code != ""){
             try {
-                key = tokenService.get(code);
+                key = tokenService.getKey(code);
             }catch (Exception e){
                 e.printStackTrace();
             }

@@ -26,7 +26,7 @@ public class OrderController {
     //成功根据微信返回的结果进行库存量的扣除
 
     @RequestMapping(value = "order",method = RequestMethod.POST)
-    public Result placeOrder(@RequestBody OrderProductsCondition orderProductsCondition) throws Exception{
+    public Result placeOrder(@RequestBody OrderProductsCondition orderProductsCondition){
         return orderService.placeOrder(orderProductsCondition);
     }
 
