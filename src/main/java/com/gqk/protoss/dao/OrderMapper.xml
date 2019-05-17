@@ -8,7 +8,7 @@
     <result column="delete_time" property="deleteTime" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
-    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="snap_img" property="snapImg" jdbcType="VARCHAR" />
     <result column="snap_name" property="snapName" jdbcType="VARCHAR" />
     <result column="total_count" property="totalCount" jdbcType="INTEGER" />
@@ -46,7 +46,7 @@
       prepay_id, snap_items)
     values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{deleteTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{totalPrice,jdbcType=DECIMAL},
-      #{status,jdbcType=TINYINT}, #{snapImg,jdbcType=VARCHAR}, #{snapName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{snapImg,jdbcType=VARCHAR}, #{snapName,jdbcType=VARCHAR},
       #{totalCount,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{snapAddress,jdbcType=VARCHAR},
       #{prepayId,jdbcType=VARCHAR}, #{snapItems,jdbcType=LONGVARCHAR})
   </insert>
@@ -116,7 +116,7 @@
         #{totalPrice,jdbcType=DECIMAL},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="snapImg != null" >
         #{snapImg,jdbcType=VARCHAR},
@@ -160,7 +160,7 @@
         total_price = #{totalPrice,jdbcType=DECIMAL},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="snapImg != null" >
         snap_img = #{snapImg,jdbcType=VARCHAR},
@@ -193,7 +193,7 @@
       delete_time = #{deleteTime,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       total_price = #{totalPrice,jdbcType=DECIMAL},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=INTEGER},
       snap_img = #{snapImg,jdbcType=VARCHAR},
       snap_name = #{snapName,jdbcType=VARCHAR},
       total_count = #{totalCount,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
       delete_time = #{deleteTime,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       total_price = #{totalPrice,jdbcType=DECIMAL},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=INTEGER},
       snap_img = #{snapImg,jdbcType=VARCHAR},
       snap_name = #{snapName,jdbcType=VARCHAR},
       total_count = #{totalCount,jdbcType=INTEGER},

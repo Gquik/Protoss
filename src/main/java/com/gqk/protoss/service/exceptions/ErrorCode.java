@@ -5,6 +5,7 @@ public enum ErrorCode {
     ORDER_NOT_EXIST(20001,"订单不存在，请检查ID"),
     ORDER_ID_IS_NULL(20002,"订单号不能为空"),
     ORDER_ADDRESS_NOT_EXIST(20003,"用户收货地址不存在，下单失败"),
+    ORDER_STATUS_UNUSUAL(20004,"订单状态异常，请检查是否已支付"),
 
     //权限异常
     USER_POWER_NOT_ENOUGH(30001,"该用户权限不足"),

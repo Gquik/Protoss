@@ -6,6 +6,7 @@ import com.gqk.protoss.dao.UserMapper;
 import com.gqk.protoss.entity.User;
 import com.gqk.protoss.entity.enums.ScopeEnum;
 import com.gqk.protoss.model.TokenCacheModel;
+import com.gqk.protoss.service.exceptions.AuthException;
 import com.gqk.protoss.util.ApplicationContextUtil;
 import com.gqk.protoss.util.HttpClientUtil;
 import com.gqk.protoss.util.JSONUtil;
@@ -82,6 +83,13 @@ public class TokenService extends Token{
         String token = req.getHeader("token");
         logger.info("从前端传过来的token："+token);
         return cacheUtil.readCache(token);
+    }
+
+    public void isValidOperate(int orderUid){
+        TokenCacheModel tokenCacheModel = getMsgFromCacha();
+        if (!tokenCacheModel.getUid().equals(orderUid)){
+            throw new AuthException("订单和用户不匹配");
+        }
     }
 
 }

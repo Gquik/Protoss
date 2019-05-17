@@ -16,7 +16,7 @@ public class Order {
 
     private BigDecimal totalPrice;
 
-    private Byte status;
+    private Integer status;
 
     private String snapImg;
 
@@ -80,11 +80,11 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
