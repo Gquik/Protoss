@@ -29,7 +29,7 @@ public class TokenService extends Token{
     private UserMapper userMapper;
 
     @Autowired
-    private CacheUtil cacheUtil;
+    private Cache cache;
 
     private String getUserToken(String code) {
         ApplicationContext applicationContext = ApplicationContextUtil.getApplicationContext();
@@ -72,9 +72,10 @@ public class TokenService extends Token{
         tokenMap.put("uid",uid);
         tokenMap.put("scope", ScopeEnum.USER.getValue());
         String key = generateToken();
-        JSONObject value = JSONUtil.mapToJson(tokenMap);
+        JSONObject jsonObject = JSONUtil.mapToJson(tokenMap);
+        String value = jsonObject.toJSONString();
         //写入缓存
-        cacheUtil.writeCache(key,value);
+        cache.writeCache(key,value);
         return key;
     }
 
@@ -82,7 +83,7 @@ public class TokenService extends Token{
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = req.getHeader("token");
         logger.info("从前端传过来的token："+token);
-        return cacheUtil.readCache(token);
+        return cache.readCache(token);
     }
 
     public void isValidOperate(int orderUid){

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Map;
 
+//####################这个是java自带的缓存,现已替换为redis缓存############################
 @Component
 public class CacheUtil {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
