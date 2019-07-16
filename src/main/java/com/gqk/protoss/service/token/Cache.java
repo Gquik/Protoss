@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class Cache {
@@ -18,8 +19,12 @@ public class Cache {
     Redis redis;
 
     //写入缓存
-    public void writeCache(String key,String value){
-        redis.set(key,value);
+    public void writeCache(String key,String value,Long times,TimeUnit unit){
+        if (times==null&&unit==null){
+            redis.set(key,value);
+        }else {
+            redis.set(key,value,times,unit);
+        }
         logger.info("###缓存成功###");
         logger.info("###缓存前内容为："+value);
         logger.info("###缓存后内容为："+redis.get(key));

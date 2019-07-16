@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TokenService extends Token{
@@ -75,7 +76,7 @@ public class TokenService extends Token{
         JSONObject jsonObject = JSONUtil.mapToJson(tokenMap);
         String value = jsonObject.toJSONString();
         //写入缓存
-        cache.writeCache(key,value);
+        cache.writeCache(key,value,1L, TimeUnit.DAYS);
         return key;
     }
 
